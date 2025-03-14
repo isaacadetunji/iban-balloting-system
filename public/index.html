@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IBAN Balloting System</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>IBAN Balloting System</h1>
+        <form id="playerForm">
+            <input type="text" id="playerName" placeholder="Enter your name" required>
+            <button type="submit">Select Team</button>
+        </form>
+        <div id="result"></div>
+        <a href="/api/players/export" download>Export to Excel</a>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

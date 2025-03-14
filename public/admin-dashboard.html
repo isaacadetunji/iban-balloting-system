@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Admin Dashboard</h1>
+        <button id="exportBtn">Export to Excel</button>
+        <button id="resetBtn">Reset Balloting</button>
+        <a href="/admin/logout">Logout</a>
+    </div>
+    <script>
+        document.getElementById('exportBtn').addEventListener('click', () => {
+            window.location.href = '/api/players/export';
+        });
+
+        document.getElementById('resetBtn').addEventListener('click', async () => {
+            const response = await fetch('/admin/reset', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+            });
+
+            if (response.ok) {
+                alert('Balloting reset successfully');
+            } else {
+                alert('Error resetting balloting');
+            }
+        });
+    </script>
+</body>
+</html>
