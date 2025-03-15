@@ -1,4 +1,4 @@
-IBAN Balloting System
+**IBAN Balloting System**
 The IBAN Balloting System is a web application designed to randomly allocate players to one of four teams. It features a user-friendly interface for players to input their names and automatically assigns them to a team. The system also includes an admin panel for exporting results to an Excel file and resetting the balloting process.
 
 Features
