@@ -1,58 +1,54 @@
-// DOM Elements
-const playerForm = document.getElementById('playerForm');
-const playerNameInput = document.getElementById('playerName');
-const resultDiv = document.getElementById('result');
+// Player Interface Logic
+if (document.getElementById('playerForm')) {
+    const playerForm = document.getElementById('playerForm');
+    const playerNameInput = document.getElementById('playerName');
+    const resultDiv = document.getElementById('result');
 
-// Add Player and Assign Team
-playerForm.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = playerNameInput.value.trim();
+    playerForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = playerNameInput.value.trim();
 
-    if (!name) {
-        alert('Please enter a name.');
-        return;
-    }
+        if (!name) {
+            alert('Please enter a name.');
+            return;
+        }
 
-    try {
-        // Send player name to the backend
-        const response = await fetch('/api/players/add', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ name }),
-        });
+        try {
+            const response = await fetch('/api/players/add', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name }),
+            });
 
-        const data = await response.json();
+            const data = await response.json();
 
-        if (response.ok) {
-            // Display the team allocation result
+            if (response.ok) {
+                resultDiv.innerHTML = `
+                    <p>${data.player.name} has been assigned to <strong>${data.player.team}</strong>.</p>
+                `;
+            } else {
+                resultDiv.innerHTML = `
+                    <p style="color: red;">${data.error}</p>
+                `;
+            }
+        } catch (err) {
+            console.error('Error:', err);
             resultDiv.innerHTML = `
-                <p>${data.player.name} has been assigned to <strong>${data.player.team}</strong>.</p>
-            `;
-        } else {
-            // Display error message
-            resultDiv.innerHTML = `
-                <p style="color: red;">${data.error}</p>
+                <p style="color: red;">An error occurred. Please try again later.</p>
             `;
         }
-    } catch (err) {
-        console.error('Error:', err);
-        resultDiv.innerHTML = `
-            <p style="color: red;">An error occurred. Please try again later.</p>
-        `;
-    }
 
-    // Clear the input field
-    playerNameInput.value = '';
-});
+        playerNameInput.value = '';
+    });
+}
 
-// Admin Export to Excel
+// Admin Dashboard Logic
 if (document.getElementById('exportBtn')) {
     document.getElementById('exportBtn').addEventListener('click', () => {
         window.location.href = '/api/players/export';
     });
 }
 
-// Admin Reset Balloting
 if (document.getElementById('resetBtn')) {
     document.getElementById('resetBtn').addEventListener('click', async () => {
         const response = await fetch('/admin/reset', {
@@ -68,7 +64,7 @@ if (document.getElementById('resetBtn')) {
     });
 }
 
-// Admin Login
+// Admin Login Logic
 if (document.getElementById('loginForm')) {
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
         e.preventDefault();
