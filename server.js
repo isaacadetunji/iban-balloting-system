@@ -34,3 +34,20 @@ app.use('/admin', adminRoutes);
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
 });
+
+const express = require('express');
+const path = require('path');
+const router = express.Router();
+
+// Serve the admin login page
+router.get('/admin/login', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/admin-login.html'));
+});
+
+// Serve the admin dashboard
+router.get('/admin/dashboard', (req, res) => {
+    if (!req.session.isAdmin) return res.redirect('/admin/login');
+    res.sendFile(path.join(__dirname, '../public/admin-dashboard.html'));
+});
+
+module.exports = router;
