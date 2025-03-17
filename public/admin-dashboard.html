@@ -8,11 +8,11 @@
 </head>
 <body>
     <div class="container">
-        <h1>Admin Dashboard</h1>
-        <button id="exportBtn">Export to Excel</button>
-        <button id="resetBtn">Reset Balloting</button>
-        <a href="/admin/logout">Logout</a>
-    </div>
+    <h1>Admin Dashboard</h1>
+    <button id="exportBtn">Export to Excel</button>
+    <button id="resetBtn">Reset Balloting</button>
+    <a href="/admin/logout">Logout</a>
+</div>
     <script>
         document.getElementById('exportBtn').addEventListener('click', () => {
             window.location.href = '/api/players/export';
